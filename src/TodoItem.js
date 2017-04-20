@@ -4,10 +4,14 @@
 import React, { Component } from 'react';
 
 class TodoItem extends Component {
-	render() {
+  handleChange = () => {
+    this.props.onClick(this.props.text)
+  }
+
+	render () {
 		return (
 			<label>
-				<input type="checkbox" checked={this.props.checked} readOnly />
+				<input type="checkbox" checked={this.props.checked} onClick={this.handleChange} />
 				{this.props.text}
 			</label>
 		)
