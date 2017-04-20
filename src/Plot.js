@@ -10,3 +10,52 @@
  */
 import React, { Component } from 'react';
 import Plotly from 'plotly.js/dist/plotly.js';
+
+const graphOptions = {
+  margin: {
+    t: 0, r: 0, l: 30
+  },
+  xaxis: {
+    gridcolor: 'transparent'
+  }
+};
+
+const displayOptions = {
+  displayModeBar: false
+};
+
+class Plot extends Component {
+  element;
+
+  renderGraph = () => {
+    const { xData, yData, type } = this.props
+
+    const data = [{
+      x: xData,
+      y: yData,
+      type: type
+    }];
+
+    Plotly.newPlot(this.element, data, graphOptions, displayOptions);
+  }
+
+  componentDidMount () {
+    this.renderGraph()
+  }
+
+  componentDidUpdate () {
+    this.renderGraph()
+  }
+
+  shouldComponentUpdate (nextProps) {
+    return nextProps.xData !== this.props.xData ||
+           nextProps.yData !== this.props.yData ||
+           nextProps.type  !== this.props.type
+  }
+
+  render () {
+    return <div ref={node => this.element = node} />
+  }
+}
+
+export default Plot;

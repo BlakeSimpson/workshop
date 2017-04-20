@@ -10,10 +10,38 @@ const weather = {
   yData: [19.82, 18.95, 18.64, 17.99, 17.14, 17.29, 17.26, 17.54, 17.46, 17.26, 17.23, 17.09, 17.09, 17.49, 18.23, 17.98, 17.64, 17.13, 16.52, 16.11, 15.83, 15.87, 16.68, 17.19, 16.96, 16.39, 16.83, 16.68, 16.54, 16.45, 17.37, 17.7, 17.26, 17.39, 17.59, 17.21, 16.94, 17.48, 18.62, 18.72]
 }
 
+class App extends React.Component {
+  constructor (props) {
+    super(props);
+
+    this.state = {
+      y: props.y,
+      x: props.x,
+      type: props.type
+    };
+  }
+
+  setType = (event) => {
+    const type = event.target.value
+    this.setState({type: type})
+  }
+
+  render () {
+    return (
+      <div>
+        <h1>The Weather in Vienna</h1>
+        <Plot xData={this.state.x} yData={this.state.y} type={this.state.type} />
+
+        <select value={this.state.type} onChange={this.setType}>
+          <option value="scatter">Scatter graph</option>
+          <option value="bar">Bar graph</option>
+        </select>
+      </div>
+    )
+  }
+}
+
 ReactDOM.render(
-  <div>
-    <h1>The Weather in Vienna</h1>
-    <Plot xData={weather.xData} yData={weather.yData} type="scatter" />
-  </div>,
+  <App type="bar" x={weather.xData} y={weather.yData} />,
   document.getElementById('root')
 );
