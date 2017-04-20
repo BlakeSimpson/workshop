@@ -8,7 +8,7 @@
  * To see an example of how you should use Plotly look at the index.html file in the public/ folder.
  * (and feel free to delete the code in there)
  */
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Plotly from 'plotly.js/dist/plotly.js';
 
 const graphOptions = {
@@ -24,7 +24,7 @@ const displayOptions = {
   displayModeBar: false
 };
 
-class Plot extends Component {
+class Plot extends PureComponent {
   element;
 
   renderGraph = () => {
@@ -45,12 +45,6 @@ class Plot extends Component {
 
   componentDidUpdate () {
     this.renderGraph()
-  }
-
-  shouldComponentUpdate (nextProps) {
-    return nextProps.xData !== this.props.xData ||
-           nextProps.yData !== this.props.yData ||
-           nextProps.type  !== this.props.type
   }
 
   render () {
